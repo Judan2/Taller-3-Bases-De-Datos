@@ -16,9 +16,15 @@ app.add_middleware(
 #conexion a la base de datos
 
 #os.environ para despliegue. Descomente cuando ya probó todo local.
+
+
 client = MongoClient(os.environ["MONGO_URI"])
 
-db = client["parranderos"] #base de datos 
+#client = MongoClient("mongodb+srv://parranderos-user:87vYZqLNOSxGEwhf@fundamentosbd.1hqd9k3.mongodb.net/?appName=FundamentosBD")
+
+
+#db = client["ISIS2304F19202610"] #base de datos 
+db = client["parranderos"] #base de datos
 
 
 @app.get("/")
@@ -46,7 +52,7 @@ def post_comentario(bar_id: int, datos: dict):
 @app.get('/bares/{bar_id}/eventos')
 def get_eventos(bar_id: int):
     eventos = list(db["eventos"].find({"bar_id": bar_id}, {"_id": 0}))
-    return eventos or {'mensaje': 'No se encontraron eventos para este bar'}
+    return eventos or {'mensaje': 'No se encontraron eventos para este bar'}#por si no ahy eventos 
 
 
 # Punto 9 - POST eventos
